@@ -1,0 +1,33 @@
+﻿  interface.cpp
+C:\Users\rodri\source\repos\Proyecto2P1\trail.h(95,64): error C3646: 'cons': especificador de invalidación desconocido
+  (compilando archivo de origen "interface.cpp")
+  C:\Users\rodri\source\repos\Proyecto2P1\trail.h(95,64):
+  el contexto de creación de instancias de la plantilla (el más antiguo primero) es
+  	C:\Users\rodri\source\repos\Proyecto2P1\trail.h(10,7):
+  	al compilar la plantilla de clase 'Trail'
+  
+C:\Users\rodri\source\repos\Proyecto2P1\interface.cpp(172,10): error C2662: 'void Trail<sf::Vector2f>::createLine(sf::RenderWindow &,float)': no se puede convertir el puntero 'this' de 'const Trail<sf::Vector2f>' a 'Trail<sf::Vector2f> &'
+  C:\Users\rodri\source\repos\Proyecto2P1\interface.cpp(172,5):
+  Se pierden calificadores en la conversión
+  C:\Users\rodri\source\repos\Proyecto2P1\trail.h(95,10):
+  vea la declaración de 'Trail<sf::Vector2f>::createLine'
+  C:\Users\rodri\source\repos\Proyecto2P1\interface.cpp(172,10):
+  al hacer coincidir la lista de argumentos '(sf::RenderWindow, float)'
+  
+  Proyecto2P1.cpp
+C:\Users\rodri\source\repos\Proyecto2P1\trail.h(95,64): error C3646: 'cons': especificador de invalidación desconocido
+  (compilando archivo de origen "Proyecto2P1.cpp")
+  C:\Users\rodri\source\repos\Proyecto2P1\trail.h(95,64):
+  el contexto de creación de instancias de la plantilla (el más antiguo primero) es
+  	C:\Users\rodri\source\repos\Proyecto2P1\trail.h(10,7):
+  	al compilar la plantilla de clase 'Trail'
+  
+  trail.cpp
+C:\Users\rodri\source\repos\Proyecto2P1\trail.h(95,64): error C3646: 'cons': especificador de invalidación desconocido
+  (compilando archivo de origen "trail.cpp")
+  C:\Users\rodri\source\repos\Proyecto2P1\trail.h(95,64):
+  el contexto de creación de instancias de la plantilla (el más antiguo primero) es
+  	C:\Users\rodri\source\repos\Proyecto2P1\trail.h(10,7):
+  	al compilar la plantilla de clase 'Trail'
+  
+  Generando código...
