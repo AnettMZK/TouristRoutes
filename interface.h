@@ -32,35 +32,37 @@ private:
     sf::Text showTrailText;
     sf::Text editTrailText;
     sf::Text deleteTrailText;
-    sf::Color currentColor = sf::Color(72, 128, 140); 
-
+    sf::Color currentColor = sf::Color(72, 128, 140);
     bool addIsPressedFlag;
     bool createIsPressedFlag;
     bool endIsPressedFlag;
     bool showIsPressedFlag;
-
+    bool editIsPressedFlag;
+    bool deleteIsPressedFlag;
 public:
-
     Interface();
-    void initializeColorButtons(sf::RectangleShape& button, const sf::Color& color, float posX, float posY);
     bool loadResources();
     void initializeButtons(sf::RectangleShape& rect, sf::Text& text, float posX, float posY, float width, float height, const std::string& buttonText, sf::Font& font);
     void printRender(sf::RenderWindow& window);
+    void handleMouseHover(const sf::RenderWindow& window);
     bool handleAddTrailClick(const sf::RenderWindow& window);
     bool handleCreateTrailClick(const sf::RenderWindow& window);
     bool handleEndTrailClick(const sf::RenderWindow& window);
     bool handleSaveTrailClick(const sf::RenderWindow& window);
     bool handleShowTrailClick(const sf::RenderWindow& window);
     bool handleColorButtonsClick(const sf::Vector2f& mousePos);
+    bool handleEditTrailClick(const sf::RenderWindow& window);
+    bool handleDeleteTrailClick(const sf::RenderWindow& window);
+
     void drawTrailInMap(sf::RenderWindow& window, const Trail<sf::Vector2f>& trail, float lineThickness);
     bool isAddPressed();
     bool isCreatePressed();
     bool isShowPressed();
-    bool endClicked();
+    bool isEditPressed();
     void setAddPressed(bool value);
     void setCreatePressed(bool value);
     bool isEndPressed();
+    bool isDeletePressed();
     sf::Color getCurrentColor();
-
 };
 

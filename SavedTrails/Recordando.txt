@@ -1,0 +1,3 @@
+Ruta: Recordando
+1.Punto1:(336, 242)
+4.PuntoFinal:(496, 488)

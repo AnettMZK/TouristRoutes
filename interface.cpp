@@ -1,20 +1,32 @@
 #pragma once
 #include "interface.h"
 
-void Interface::initializeColorButtons(sf::RectangleShape& button, const sf::Color& color, float posX, float posY) {
-    button.setSize(sf::Vector2f(30, 30)); 
-    button.setFillColor(color); 
-    button.setPosition(posX, posY); 
-}
+Interface::Interface() : addIsPressedFlag(false), createIsPressedFlag(false), endIsPressedFlag(false), showIsPressedFlag(false), editIsPressedFlag(true), deleteIsPressedFlag(true)
+{  
+    //Botones de colores 
+    colorPowderBlue.setSize(sf::Vector2f(30, 30));
+    colorPowderBlue.setFillColor(sf::Color(190, 233, 232));
+    colorPowderBlue.setPosition(940.8f, 475.7f);
 
-Interface::Interface() : addIsPressedFlag(false), createIsPressedFlag(false), endIsPressedFlag(false), showIsPressedFlag(false) {
+    colorSkyBlue.setSize(sf::Vector2f(30, 30));
+    colorSkyBlue.setFillColor(sf::Color(98, 182, 203));
+    colorSkyBlue.setPosition(985.7f, 475.7f);
 
-    initializeColorButtons(colorPowderBlue, sf::Color(190, 233, 232), 940.8f, 475.7f);
-    initializeColorButtons(colorSkyBlue, sf::Color(98, 182, 203), 985.7f, 475.7f);
-    initializeColorButtons(colorSteelBlue, sf::Color(42, 97, 130), 1030.5f, 475.7f);
-    initializeColorButtons(colorLightCyan, sf::Color(224, 242, 255), 940.8f, 514.4f);
-    initializeColorButtons(colorFlowerBlue, sf::Color(95, 168, 211), 985.7f, 514.4f);
-    initializeColorButtons(colorTeal, sf::Color(54, 115, 128), 1030.5f, 514.4f);
+    colorSteelBlue.setSize(sf::Vector2f(30, 30));
+    colorSteelBlue.setFillColor(sf::Color(42, 97, 130));
+    colorSteelBlue.setPosition(1030.5, 475.7f);
+
+    colorLightCyan.setSize(sf::Vector2f(30, 30));
+    colorLightCyan.setFillColor(sf::Color(224, 242, 255));
+    colorLightCyan.setPosition(940.8f, 514.4f);
+
+    colorFlowerBlue.setSize(sf::Vector2f(30, 30));
+    colorFlowerBlue.setFillColor(sf::Color(95, 168, 211));
+    colorFlowerBlue.setPosition(985.7f, 514.4f);
+
+    colorTeal.setSize(sf::Vector2f(30, 30));
+    colorTeal.setFillColor(sf::Color(54, 115, 128));
+    colorTeal.setPosition(1030.5f, 514.4f);
 }
 
 bool Interface::loadResources()
@@ -47,6 +59,10 @@ void Interface::initializeButtons(sf::RectangleShape& rect, sf::Text& text, floa
     rect.setSize(sf::Vector2f(width, height));
     rect.setFillColor(sf::Color(32, 77, 85));
     rect.setPosition(posX, posY);
+    sf::Vector2i mousePos = sf::Mouse::getPosition();
+    if (rect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+        rect.setFillColor(sf::Color(63, 124, 134));
+    }
 
     text.setFont(font);
     text.setString(buttonText);
@@ -61,6 +77,59 @@ void Interface::initializeButtons(sf::RectangleShape& rect, sf::Text& text, floa
     );
 }
 
+void Interface::handleMouseHover(const sf::RenderWindow& window)
+{
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+    if (createTrailRect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+        createTrailRect.setFillColor(sf::Color(63, 124, 134)); 
+    }
+    else {
+        createTrailRect.setFillColor(sf::Color(32, 77, 85)); 
+    }
+
+    if (addButtonRect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+        addButtonRect.setFillColor(sf::Color(63, 124, 134));
+    }
+    else {
+        addButtonRect.setFillColor(sf::Color(32, 77, 85));
+    }
+
+    if (endTrailRect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+        endTrailRect.setFillColor(sf::Color(63, 124, 134));
+    }
+    else {
+        endTrailRect.setFillColor(sf::Color(32, 77, 85));
+    }
+
+    if (saveTrailRect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+        saveTrailRect.setFillColor(sf::Color(63, 124, 134));
+    }
+    else {
+        saveTrailRect.setFillColor(sf::Color(32, 77, 85));
+    }
+
+    if (editTrailRect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+        editTrailRect.setFillColor(sf::Color(63, 124, 134));
+    }
+    else {
+        editTrailRect.setFillColor(sf::Color(32, 77, 85));
+    }
+
+    if (deleteTrailRect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+        deleteTrailRect.setFillColor(sf::Color(63, 124, 134));
+    }
+    else {
+        deleteTrailRect.setFillColor(sf::Color(32, 77, 85));
+    }
+
+    if (showTrailRect.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+        showTrailRect.setFillColor(sf::Color(63, 124, 134));
+    }
+    else {
+        showTrailRect.setFillColor(sf::Color(32, 77, 85));
+    }
+}
 void Interface::printRender(sf::RenderWindow& window)
 {
     window.draw(mapSprite);
@@ -93,6 +162,8 @@ bool Interface::handleAddTrailClick(const sf::RenderWindow& window)
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if (addButtonRect.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         addIsPressedFlag = !addIsPressedFlag;
+        editIsPressedFlag = false;
+        deleteIsPressedFlag = false;
         return true;
     }
     return false;
@@ -103,6 +174,8 @@ bool Interface::handleCreateTrailClick(const sf::RenderWindow& window)
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if (createTrailRect.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         createIsPressedFlag = !createIsPressedFlag;
+        editIsPressedFlag = false;
+        deleteIsPressedFlag = false;
         return true;
     }
     return false;
@@ -115,6 +188,8 @@ bool Interface::handleEndTrailClick(const sf::RenderWindow& window)
         addIsPressedFlag = false;
         endIsPressedFlag = true;
         createIsPressedFlag = false;
+        editIsPressedFlag = false;
+        deleteIsPressedFlag = false;
         return true;
     }
     return false;
@@ -123,6 +198,7 @@ bool Interface::handleEndTrailClick(const sf::RenderWindow& window)
 bool Interface::handleSaveTrailClick(const sf::RenderWindow& window) {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if (saveTrailRect.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+        editIsPressedFlag = false;
         return true; 
     }
     return false;
@@ -133,38 +209,58 @@ bool Interface::handleShowTrailClick(const sf::RenderWindow& window)
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if (showTrailRect.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
         showIsPressedFlag = !showIsPressedFlag;
+        editIsPressedFlag = false;
+        deleteIsPressedFlag = false;
         return true;
     }
     return false;
 }
 
-bool Interface::handleColorButtonsClick(const sf::Vector2f& mousePos) {
-
+bool Interface::handleColorButtonsClick(const sf::Vector2f& mousePos)
+{
     if (colorFlowerBlue.getGlobalBounds().contains(mousePos)) {
-        currentColor = sf::Color(190, 233, 232); 
-        return true; 
+        currentColor = sf::Color(190, 233, 232);
+        return true;
     }
     else if (colorSkyBlue.getGlobalBounds().contains(mousePos)) {
         currentColor = sf::Color(98, 182, 203);
-        return true; 
+        return true;
     }
     else if (colorSteelBlue.getGlobalBounds().contains(mousePos)) {
         currentColor = sf::Color(42, 97, 130);
+        return true;
     }
     else if (colorLightCyan.getGlobalBounds().contains(mousePos)) {
         currentColor = sf::Color(224, 242, 255);
         return true;
     }
-    else if (colorFlowerBlue.getGlobalBounds().contains(mousePos)) {
-        currentColor = sf::Color(95, 168, 211); 
-        return true;
-    }
     else if (colorTeal.getGlobalBounds().contains(mousePos)) {
         currentColor = sf::Color(54, 115, 128);
-        return true; 
+        return true;
     }
+    return false;
+}
 
-    return false; 
+bool Interface::handleEditTrailClick(const sf::RenderWindow& window)
+{
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    if (editTrailRect.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+        editIsPressedFlag = !editIsPressedFlag;
+        deleteIsPressedFlag = false;
+        return true;
+    }
+    return false;
+}
+
+bool Interface::handleDeleteTrailClick(const sf::RenderWindow& window)
+{
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    if (deleteTrailRect.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+        deleteIsPressedFlag = !deleteIsPressedFlag;
+        editIsPressedFlag = false;
+        return true;
+    }
+    return false;
 }
 
 void Interface::drawTrailInMap(sf::RenderWindow& window, const Trail<sf::Vector2f>& trail, float lineThickness)
@@ -178,10 +274,9 @@ bool Interface::isAddPressed()
     return addIsPressedFlag;
 }
 
-bool Interface::endClicked()
+bool Interface::isEditPressed()
 {
-    endIsPressedFlag = !endIsPressedFlag;
-    return endIsPressedFlag;
+    return editIsPressedFlag;
 }
 
 bool Interface::isCreatePressed()
@@ -210,6 +305,11 @@ bool Interface::isEndPressed()
     return endIsPressedFlag;
 }
 
-sf::Color Interface::getCurrentColor() {
-    return currentColor; 
+bool Interface::isDeletePressed()
+{
+    return deleteIsPressedFlag;
+}
+
+sf::Color Interface::getCurrentColor(){
+    return currentColor;
 }

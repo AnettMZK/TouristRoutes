@@ -1,0 +1,3 @@
+Ruta: Segunda
+1.Puntito:(391, 283)
+2.Puntote:(318, 417)
